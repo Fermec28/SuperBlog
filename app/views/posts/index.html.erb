@@ -1,0 +1,16 @@
+
+  <% @posts.each  do |post|   %>
+  	<div class="row">	
+  		<div class="col-md-2"></div>
+  		<div class="col-md-8">
+  			<h2 class="text-info"> <%= link_to post.title, post %></h2>
+        <p class="text-muted">Publicado por <%= post.user.email %>  hace <%= time_ago_in_words(post.created_at) %></p>  			
+        <p><%= markdown(truncate(post.body, :length => 250)) %></p>
+        <% if user_signed_in? && current_user == post.user %>
+          <%= link_to "Editar", edit_post_path(post), class: "glyphicon glyphicon-pencil" %>
+          <%= link_to "Eliminar", post, :method => :delete, class: "glyphicon glyphicon-trash" %>
+        <% end %>
+  		</div>
+  		<div class="col-md-2"></div>
+  	</div>
+  <%end %>  
